@@ -85,7 +85,23 @@ const db: Employee[] = [
 const EmployeeItem = ({id, name, worksTimes}: Employee) => {
   return (
     <div>
-      <h1>{name}</h1>
+      <h1 class="text-3xl">{name}</h1>
+      <h1 class="text-2xl">Works time</h1>
+      {
+        worksTimes.map((time) => {
+          return (
+            <div>
+              {time.date}: {time.times.map((str, index) => {
+                if (index === time.times.length - 1) {
+                  return str
+                } else {
+                  return str + ", "
+                }
+              })}
+            </div>
+          )
+        })
+      }
     </div>
   )
 }
