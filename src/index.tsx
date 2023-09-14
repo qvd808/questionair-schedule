@@ -7,14 +7,14 @@ const app = new Elysia()
   .get("/", ({ html }) => html(
     <BaseHTML>
       <body class="flex w-full h-screen justify-center items-center"
-        // hx-get="/employees_time"
+        hx-get="/employees"
         hx-trigger="load"
         hx-swap="innerHTML"
       >
       </body>
     </BaseHTML>
   ))
-
+  .get("/employees", ()=> <EmployeeList list_of_employees={db}/>)
   .listen(3000);
 
 console.log(
@@ -81,3 +81,21 @@ const db: Employee[] = [
     ]
   },
 ]
+
+const EmployeeItem = ({id, name, worksTimes}: Employee) => {
+  return (
+    <div>
+      <h1>{name}</h1>
+    </div>
+  )
+}
+
+const EmployeeList = ({list_of_employees}: {list_of_employees: Employee[]}) => {
+  return (
+    <div>
+    {list_of_employees.map((employee) => (
+      <EmployeeItem {...employee}/>
+    ))}
+    </div>
+  )
+}
